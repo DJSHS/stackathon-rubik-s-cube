@@ -1,10 +1,19 @@
 const THREE = require('three');
 const OrbitControls = require('three-orbit-controls')(THREE);
 
+const colorArr = [
+  0xff0000, // red
+  0xffa500, // orange
+  0xffff00, // yellow
+  0xffffff, // white
+  0x0000ff, // blue
+  0x00ff00, // green
+];
+
 function init() {
   const scene = new THREE.Scene();
 
-  const camera = new THREE.PerspectiveCamera(45, window.innerWidth/window.innerHeight, 0.1, 1000);
+  const camera = new THREE.PerspectiveCamera(45, window.innerWidth/window.innerHeight, 1, 1000);
 
   const controls = new OrbitControls(camera);
 
@@ -13,42 +22,33 @@ function init() {
   camera.position.y = 12;
   // camera.lookAt(scene.position);
 
-  // controls.target = new THREE.Vector3(1, 1, 1);
+  controls.enableDamping = true;
+  controls.rotateSpeed = 0.3;
+  controls.maxDistance = 120;
+  controls.minDistance = 10;
   controls.target.set(1, 1, 1);
   controls.update();
 
   const renderer = new THREE.WebGLRenderer({ antialias: true });
-  renderer.setSize(window.innerWidth * 0.75, window.innerHeight);
+  renderer.setSize(window.innerWidth * 0.75, window.innerHeight * 0.97);
   renderer.setPixelRatio(window.devicePixelRatio);
-  document.getElementById('cube').appendChild(renderer.domElement);
+  document.getElementById('WebGL-output').appendChild(renderer.domElement);
 
   const geometry = new THREE.BoxGeometry(1, 1, 1);
-  const material = new THREE.MeshBasicMaterial({ color: 0xffcf00 });
+  for (let i = 0; i < 12; i += 2) {
+    geometry.faces[i].color.setHex(colorArr[i/2]);
+    geometry.faces[i + 1].color.setHex(colorArr[i/2]);
+  }
 
-  // for (let i = 0; i < 3; i++) {
-  //   for (let j = 0; j < 3; j++) {
-  //     let mesh = new THREE.Mesh( geometry, material );
-
-  //     const geoEdge = new THREE.EdgesGeometry(mesh.geometry);
-  //     const matEdge = new THREE.LineBasicMaterial({ color: 0x000000, linewidth: 2 });
-  //     const wireFrame = new THREE.LineSegments(geoEdge, matEdge);
-  //     wireFrame.renderOrder = 1;
-  //     mesh.add(wireFrame);
-
-  //     mesh.position.x = 3.2 - ( 1.6 * i );
-  //     mesh.position.y = 0;
-  //     mesh.position.z = 3.2 - ( 1.6 * j );
-  //     scene.add(mesh);
-  //   }
-  // }
+  const material = new THREE.MeshBasicMaterial({ vertexColors: THREE.FaceColors });
 
   for (let i = 0; i < 3; i++) {
     for (let j = 0; j < 3; j++) {
       for (let k = 0; k < 3; k++) {
-        let mesh = new THREE.Mesh( geometry, material );
+        let mesh = new THREE.Mesh(geometry, material);
 
         const geoEdge = new THREE.EdgesGeometry(mesh.geometry);
-        const matEdge = new THREE.LineBasicMaterial({ color: 0x000000, linewidth: 2 });
+        const matEdge = new THREE.LineBasicMaterial({ color: 0x000000, linewidth: 3 });
         const wireFrame = new THREE.LineSegments(geoEdge, matEdge);
         wireFrame.renderOrder = 1;
         mesh.add(wireFrame);
@@ -105,8 +105,6 @@ function init() {
   }
 
   animate();
-
-  // renderer.render(scene, camera);
 }
 
 init();
