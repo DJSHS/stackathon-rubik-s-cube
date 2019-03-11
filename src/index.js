@@ -68,7 +68,7 @@ function init() {
   }
 
   window.addEventListener('resize', onWindowResize);
-  renderer.domElement.addEventListener('click', onMouseClick, false);
+  renderer.domElement.addEventListener('mousedown', onMouseDown, false);
 
   function animate() {
     requestAnimationFrame(animate);
@@ -87,7 +87,7 @@ function onWindowResize() {
   renderer.setSize(window.innerWidth * 0.75, window.innerHeight);
 }
 
-function onMouseClick(event) {
+function onMouseDown(event) {
   event.preventDefault();
   mouse.x = (event.clientX / window.innerWidth / 0.75) * 2 - 1;
   mouse.y = - (event.clientY / window.innerHeight) * 2 + 1;
@@ -95,11 +95,9 @@ function onMouseClick(event) {
 
   const intersection = raycaster.intersectObjects(scene.children);
   if (intersection.length) {
-    intersection[0].object.position.set(3, 3, 4);
-    console.log(intersection[0].object.rotation.x = 1);
+    // hard coded direction
+    intersection[0].object.rotation.x += Math.PI / 2;
   }
-  // camera.updateProjectionMatrix();
-  // renderer.render(scene, camera);
 }
 
 init();
