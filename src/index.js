@@ -10,27 +10,32 @@ const colorArr = [
   0x00ff00, // green
 ];
 
+let scene, camera, controls, renderer, raycaster;
+const mouse = new THREE.Vector2();
+
 function init() {
-  const scene = new THREE.Scene();
+  scene = new THREE.Scene();
+  scene.background = new THREE.Color(0x0f0f0f);
 
-  const camera = new THREE.PerspectiveCamera(45, window.innerWidth/window.innerHeight, 1, 1000);
+  camera = new THREE.PerspectiveCamera(45, window.innerWidth/window.innerHeight, 1, 1000);
 
-  const controls = new OrbitControls(camera);
+  controls = new OrbitControls(camera);
+
+  raycaster = new THREE.Raycaster();
 
   camera.position.z = 12;
   camera.position.x = 12;
   camera.position.y = 12;
-  // camera.lookAt(scene.position);
 
   controls.enableDamping = true;
   controls.rotateSpeed = 0.3;
-  controls.maxDistance = 120;
-  controls.minDistance = 10;
+  controls.maxDistance = 40;
+  controls.minDistance = 8;
   controls.target.set(1, 1, 1);
   controls.update();
 
-  const renderer = new THREE.WebGLRenderer({ antialias: true });
-  renderer.setSize(window.innerWidth * 0.75, window.innerHeight * 0.97);
+  renderer = new THREE.WebGLRenderer({ antialias: true });
+  renderer.setSize(window.innerWidth * 0.75, window.innerHeight);
   renderer.setPixelRatio(window.devicePixelRatio);
   document.getElementById('WebGL-output').appendChild(renderer.domElement);
 
@@ -48,7 +53,7 @@ function init() {
         let mesh = new THREE.Mesh(geometry, material);
 
         const geoEdge = new THREE.EdgesGeometry(mesh.geometry);
-        const matEdge = new THREE.LineBasicMaterial({ color: 0x000000, linewidth: 3 });
+        const matEdge = new THREE.LineBasicMaterial({ color: 0x000000, linewidth: 4 });
         const wireFrame = new THREE.LineSegments(geoEdge, matEdge);
         wireFrame.renderOrder = 1;
         mesh.add(wireFrame);
@@ -62,39 +67,8 @@ function init() {
     }
   }
 
-  // var group1 = new THREE.Object3D(), 
-  //   group2 = new THREE.Object3D(),
-  //   group3 = new THREE.Object3D(); 
-  // scene.add(group1); 
-  // scene.add(group2); 
-  // scene.add(group3);
-
-  // const group1 = new THREE.Group();
-  // const group2 = new THREE.Group();
-  // const group3 = new THREE.Group();
-  
-  // function buildCube(group) {
-  //   for (let i = 1; i < 3; i++) {
-  //     const cube = new THREE.Mesh(geometry, material);
-
-  //     const geoEdge = new THREE.EdgesGeometry(cube.geometry);
-  //     const matEdge = new THREE.LineBasicMaterial({ color: 0x000000 });
-  //     const wireFrame = new THREE.LineSegments(geoEdge, matEdge);
-  //     wireFrame.renderOrder = 1;
-  //     cube.add(wireFrame);
-
-  //     cube.position.x = i / 2;
-  //     group.add(cube);
-  //   }
-  // }
-
-  // buildCube(group1);
-  // buildCube(group2);
-  // buildCube(group3);
-
-  // scene.add(group1); 
-  // scene.add(group2); 
-  // scene.add(group3);
+  window.addEventListener('resize', onWindowResize);
+  renderer.domElement.addEventListener('click', onMouseClick, false);
 
   function animate() {
     requestAnimationFrame(animate);
@@ -105,6 +79,27 @@ function init() {
   }
 
   animate();
+}
+
+function onWindowResize() {
+  camera.aspect = window.innerWidth / window.innerHeight;
+  camera.updateProjectionMatrix();
+  renderer.setSize(window.innerWidth * 0.75, window.innerHeight);
+}
+
+function onMouseClick(event) {
+  event.preventDefault();
+  mouse.x = (event.clientX / window.innerWidth / 0.75) * 2 - 1;
+  mouse.y = - (event.clientY / window.innerHeight) * 2 + 1;
+  raycaster.setFromCamera(mouse, camera);
+
+  const intersection = raycaster.intersectObjects(scene.children);
+  if (intersection.length) {
+    intersection[0].object.position.set(3, 3, 4);
+    console.log(intersection[0].object.rotation.x = 1);
+  }
+  // camera.updateProjectionMatrix();
+  // renderer.render(scene, camera);
 }
 
 init();
