@@ -68,7 +68,7 @@ function init() {
   }
 
   window.addEventListener('resize', onWindowResize);
-  renderer.domElement.addEventListener('mousedown', onMouseDown, false);
+  renderer.domElement.addEventListener('click', onMouseDown, false);
 
   function animate() {
     requestAnimationFrame(animate);
@@ -95,9 +95,9 @@ function onMouseDown(event) {
 
   const intersection = raycaster.intersectObjects(scene.children);
   if (intersection.length) {
-    // hard coded direction
     intersection[0].object.rotation.x += Math.PI / 2;
   }
 }
 
 init();
+window.init = init;
