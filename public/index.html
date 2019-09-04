@@ -4,21 +4,14 @@
   <head>
     <meta charset="utf-8">
     <title>Stackathon</title>
-    <style>
-      body {
-        display: flex;
-      }
-      #button {
-        margin: 3em;
-      }
-    </style>
+    <link rel="stylesheet" href="/style.css">
   </head>
   <body>
     <div id="WebGL-output"></div>
     <div id="button">
-      <p>Rubik's Cube Simulator</p>
-      <button type="button">Shuffle</button>
-      <button type="button" onclick="init()">Reset</button>
+      <h1>Rubik's Cube Simulator</h1>
+      <button type="button" onclick="shuffle()">Shuffle</button>
+      <button type="button" onclick="resetCube()">Reset</button>
     </div>
     <script defer src="bundle.js" charset="utf-8"></script>
   </body>
