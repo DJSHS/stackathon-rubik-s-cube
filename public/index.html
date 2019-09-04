@@ -6,12 +6,20 @@
     <title>Stackathon</title>
     <link rel="stylesheet" href="/style.css">
   </head>
-  <body>
-    <div id="WebGL-output"></div>
-    <div id="button">
-      <h1>Rubik's Cube Simulator</h1>
-      <button type="button" onclick="shuffle()">Shuffle</button>
-      <button type="button" onclick="resetCube()">Reset</button>
+  <body onkeydown="timer(event)">
+    <h1>Rubik's Cube Simulator</h1>
+    <div id="main">
+      <div id="WebGL-output"></div>
+      <div>
+        <div>
+          <button type="button" class="button" onclick="shuffle()">Shuffle</button>
+          <button type="button" class="button" onclick="resetCube()">Reset</button>
+        </div>
+        <div id="timer">
+          <p>Press Space For Timer</p>
+          <p id="time">0 : 0 : 0</p>
+        </div>
+      </div>
     </div>
     <script defer src="bundle.js" charset="utf-8"></script>
   </body>

@@ -1,7 +1,37 @@
-body {
+#main {
   display: flex;
+  flex-wrap: nowrap;
 }
 
-#button {
-  margin: 3em;
+h1 {
+  align-content: center;
+}
+
+.button {
+  margin-left: 1.5em;
+  margin-right: 0.5em;
+  margin-bottom: 2em;
+  background: whitesmoke;
+  color: #0f0f0f;
+  border: solid 4px rgb(236, 235, 235);
+  font-size: 1.4em;
+  border-radius: 5px;
+}
+
+.button:hover {
+  background: lightgray;
+  border: solid 4px lightgray;
+}
+
+.button:active {
+  background: gray;
+}
+
+#timer {
+  margin-left: 1.5em;
+}
+
+p {
+  font-size: 1.5em;
+  margin-left: 0.5em;
 }

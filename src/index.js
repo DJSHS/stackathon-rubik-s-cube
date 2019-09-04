@@ -3,6 +3,7 @@ const createCube = require('./createCube');
 const createScene = require('./createScene');
 const createControl = require('./createControl');
 const createCamera = require('./createCamera');
+const timer = require('./timer');
 
 let scene, camera, controls, renderer;
 const mouse = new THREE.Vector2();
@@ -16,7 +17,7 @@ function init() {
   createCube(scene);
 
   renderer = new THREE.WebGLRenderer({ antialias: true });
-  renderer.setSize(window.innerWidth * 0.75, window.innerHeight);
+  renderer.setSize(window.innerWidth * 0.7, window.innerHeight * 0.85);
   renderer.setPixelRatio(window.devicePixelRatio);
   document.getElementById('WebGL-output').appendChild(renderer.domElement);
 
@@ -32,6 +33,12 @@ function init() {
   window.addEventListener('resize', onWindowResize);
 }
 
+function onWindowResize() {
+  camera.aspect = window.innerWidth / window.innerHeight;
+  camera.updateProjectionMatrix();
+  renderer.setSize(window.innerWidth * 0.7, window.innerHeight * 0.85);
+}
+
 function resetCube() {
   while (scene.children.length > 0) {
     scene.remove(scene.children[0]);
@@ -42,12 +49,6 @@ function resetCube() {
 
 function shuffle() {
   console.log('Shuffle!!')
-}
-
-function onWindowResize() {
-  camera.aspect = window.innerWidth / window.innerHeight;
-  camera.updateProjectionMatrix();
-  renderer.setSize(window.innerWidth * 0.75, window.innerHeight);
 }
 
 function onMouseDown(event) {
@@ -105,3 +106,4 @@ function onMouseDown(event) {
 init();
 window.resetCube = resetCube;
 window.shuffle = shuffle;
+window.timer = timer;
