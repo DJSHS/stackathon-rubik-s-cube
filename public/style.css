@@ -1,21 +1,31 @@
 #main {
   display: flex;
-  flex-wrap: nowrap;
 }
 
 h1 {
-  align-content: center;
+  text-decoration: underline solid gray;
+}
+
+h1:after {
+  content: '________';
+  color: transparent;
+}
+
+#buttons {
+  margin-left: 10%;
+  margin-bottom: 1.5em;
+  display: flex;
+  flex-wrap: wrap;
 }
 
 .button {
-  margin-left: 1.5em;
-  margin-right: 0.5em;
-  margin-bottom: 2em;
+  margin: 0.8em;
+  width: 5em;
   background: whitesmoke;
   color: #0f0f0f;
-  border: solid 4px rgb(236, 235, 235);
+  border: solid 0.2em whitesmoke;
   font-size: 1.4em;
-  border-radius: 5px;
+  border-radius: 0.5em;
 }
 
 .button:hover {
@@ -28,10 +38,26 @@ h1 {
 }
 
 #timer {
-  margin-left: 1.5em;
+  display: inline-block;
 }
 
 p {
   font-size: 1.5em;
-  margin-left: 0.5em;
+  text-align: center
+}
+
+#time {
+  font-size: 2em;
+}
+
+#spacebar {
+  max-width: 15%;
+  height: 15%;
+}
+
+#cube {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 55%;
 }

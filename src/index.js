@@ -30,7 +30,6 @@ function init() {
   }
   animate();
 
-  window.addEventListener('resize', onWindowResize);
 }
 
 function onWindowResize() {
@@ -43,7 +42,6 @@ function resetCube() {
   while (scene.children.length > 0) {
     scene.remove(scene.children[0]);
   }
-
   createCube(scene);
 }
 
@@ -53,7 +51,7 @@ function shuffle() {
 
 function onMouseDown(event) {
   event.preventDefault();
-  mouse.x = (event.clientX / window.innerWidth / 0.75) * 2 - 1;
+  mouse.x = (event.clientX / window.innerWidth / 0.7) * 2 - 1;
   mouse.y = - (event.clientY / window.innerHeight) * 2 + 1;
   raycaster.setFromCamera(mouse, camera);
 
@@ -104,6 +102,7 @@ function onMouseDown(event) {
 // }
 
 init();
+window.addEventListener('resize', onWindowResize);
 window.resetCube = resetCube;
 window.shuffle = shuffle;
 window.timer = timer;

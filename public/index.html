@@ -11,13 +11,18 @@
     <div id="main">
       <div id="WebGL-output"></div>
       <div>
-        <div>
+        <div id="buttons">
           <button type="button" class="button" onclick="shuffle()">Shuffle</button>
           <button type="button" class="button" onclick="resetCube()">Reset</button>
+          <button type="button" class="button">←</button>
+          <button type="button" class="button">→</button>
         </div>
         <div id="timer">
-          <p>Press Space For Timer</p>
-          <p id="time">0 : 0 : 0</p>
+          <p>Press <img id="spacebar" src="./spacebar-icon-25.jpg"> For Timer</p>
+          <p id="time">00 : 00 : 00</p>
+          <a href="https://www.rubiks.com/en-us/how-to-solve-rubiks-cube" target="_blank">
+            <img id="cube" src="./rubik_cube_PNG50.png" alt="Rubik's Cube">
+          </a>
         </div>
       </div>
     </div>

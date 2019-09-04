@@ -9,31 +9,30 @@ module.exports = function timer(event) {
   if (event.keyCode === 32) {
     if(!isCounting) {
       resetTime();
+      document.getElementById('time').style.color = 'red';
       isCounting = true;
       timeoutId = setInterval(countTime, 1);
-      document.getElementById('time').style.color = 'red';
     } else {
       isCounting = false;
-      clearTimeout(timeoutId);
       document.getElementById('time').style.color = 'black';
+      clearTimeout(timeoutId);
     }
   }
 }
 
 function countTime() {
-  ms+=1;
-  if(ms>=100) {
+  ms += 1;
+  if(ms >= 100) {
       secs+=1;
       ms = 0;
   }
-  if(secs>=60) {
-      mins+=1;    
+  if(secs >= 60) {
+      mins += 1;    
       secs = 0;
   }
-  if(mins>=60) {
-      mins = 0;    
-  }
-  document.getElementById('time').innerHTML = mins + ' : ' + secs + ' : ' + ms;
+  let time = mins + ' : ' + secs + ' : ' + ms;
+  time = time.replace(/^([0-9])/, '0$1').replace(/\s([0-9])\s/, ' 0$1 ').replace(/\s([0-9])$/, ' 0$1');
+  document.getElementById('time').innerHTML = time;
 }
 
 function resetTime() {
