@@ -1,13 +1,12 @@
-const THREE = require('three');
-const createCube = require('./createCube');
-const createScene = require('./createScene');
-const createControl = require('./createControl');
-const createCamera = require('./createCamera');
-const timer = require('./timer');
+import * as THREE from 'three';
+import createCube from './createCube';
+import createScene from './createScene';
+import createControl from './createControl';
+import createCamera from './createCamera';
+import timer from './timer';
+import { startCube, moveCube, stopCube } from './rotateCube';
 
 let scene, camera, controls, renderer;
-const mouse = new THREE.Vector2();
-const raycaster = new THREE.Raycaster();
 
 function init() {
   scene = createScene();
@@ -21,8 +20,6 @@ function init() {
   renderer.setPixelRatio(window.devicePixelRatio);
   document.getElementById('WebGL-output').appendChild(renderer.domElement);
 
-  renderer.domElement.addEventListener('mousedown', onMouseDown, false);
-
   function animate() {
     requestAnimationFrame(animate);
     controls.update();
@@ -30,6 +27,9 @@ function init() {
   }
   animate();
 
+  renderer.domElement.addEventListener('mousedown', startCube(camera, scene), false);
+  renderer.domElement.addEventListener('mousemove', moveCube, false );
+  renderer.domElement.addEventListener('mouseup', stopCube,false);
 }
 
 function onWindowResize() {
@@ -48,58 +48,6 @@ function resetCube() {
 function shuffle() {
   console.log('Shuffle!!')
 }
-
-function onMouseDown(event) {
-  event.preventDefault();
-  mouse.x = (event.clientX / window.innerWidth / 0.7) * 2 - 1;
-  mouse.y = - (event.clientY / window.innerHeight) * 2 + 1;
-  raycaster.setFromCamera(mouse, camera);
-
-  const intersection = raycaster.intersectObjects(scene.children);
-  if (intersection.length) {
-    intersection[0].object.rotation.x += Math.PI / 2;
-  }
-}
-
-// function onDocumentMouseDown( event ) {
-
-//   event.preventDefault();
-
-//   document.addEventListener( 'mousemove', onDocumentMouseMove, false );
-//   document.addEventListener( 'mouseup', onDocumentMouseUp, false );
-//   document.addEventListener( 'mouseout', onDocumentMouseOut, false );
-
-//   mouseXOnMouseDown = event.clientX - windowHalfX;
-//   targetRotationOnMouseDownX = targetRotationX;
-
-//   mouseYOnMouseDown = event.clientY - windowHalfY;
-//   targetRotationOnMouseDownY = targetRotationY;
-// }
-
-// function onDocumentMouseMove( event ) {
-
-//   mouseX = event.clientX - windowHalfX;
-
-//   targetRotationX = ( mouseX - mouseXOnMouseDown ) * 0.00025;
-
-//   mouseY = event.clientY - windowHalfY;
-
-//   targetRotationY = ( mouseY - mouseYOnMouseDown ) * 0.00025;
-// }
-
-// function onDocumentMouseUp( event ) {
-
-//   document.removeEventListener( 'mousemove', onDocumentMouseMove, false );
-//   document.removeEventListener( 'mouseup', onDocumentMouseUp, false );
-//   document.removeEventListener( 'mouseout', onDocumentMouseOut, false );
-// }
-
-// function onDocumentMouseOut( event ) {
-
-//   document.removeEventListener( 'mousemove', onDocumentMouseMove, false );
-//   document.removeEventListener( 'mouseup', onDocumentMouseUp, false );
-//   document.removeEventListener( 'mouseout', onDocumentMouseOut, false );
-// }
 
 init();
 window.addEventListener('resize', onWindowResize);

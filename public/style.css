@@ -4,6 +4,7 @@
 
 h1 {
   text-decoration: underline solid gray;
+  color: #837a7a;
 }
 
 h1:after {

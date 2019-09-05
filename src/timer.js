@@ -31,7 +31,7 @@ function countTime() {
       secs = 0;
   }
   let time = mins + ' : ' + secs + ' : ' + ms;
-  time = time.replace(/^([0-9])/, '0$1').replace(/\s([0-9])\s/, ' 0$1 ').replace(/\s([0-9])$/, ' 0$1');
+  time = time.replace(/^([0-9])\s/, '0$1 ').replace(/\s([0-9])\s/, ' 0$1 ').replace(/\s([0-9])$/, ' 0$1');
   document.getElementById('time').innerHTML = time;
 }
 
