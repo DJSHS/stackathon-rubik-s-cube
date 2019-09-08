@@ -3,6 +3,7 @@ const raycaster = new THREE.Raycaster();
 
 let intersect;
 let backward = [], foreward = [];
+let movement = null;
 
 function startCube(camera, scene) {
   return () => {
@@ -25,21 +26,23 @@ function moveCube() {
 }
 
 function stopCube() {
-  backward.push(1);
+  backward.push(intersect);
   foreward = [];
 }
 
 function backwardMovement() {
   if (backward.length) {
+    movement = backward[backward.length - 1];
+    movement.object.rotation.x -= Math.PI / 2;
     foreward.push(backward.pop());
-    console.log(backward)
   }
 }
 
 function forewardMovement() {
   if (foreward.length) {
+    movement = foreward[foreward.length - 1];
+    movement.object.rotation.x += Math.PI / 2;
     backward.push(foreward.pop());
-    console.log(foreward);
   }
 }
 
