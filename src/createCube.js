@@ -7,7 +7,7 @@ const colorArr = [
   0x00ff00, // green
 ];
 
-module.exports = function createCube(scene) {
+function createCube(scene) {
   const geometry = new THREE.BoxGeometry(1, 1, 1);
   for (let i = 0; i < 12; i += 2) {
     geometry.faces[i].color.setHex(colorArr[i/2]);
@@ -35,4 +35,16 @@ module.exports = function createCube(scene) {
       }
     }
   }
+}
+
+function removeAndCreateCube(scene) {
+  while (scene.children.length > 0) {
+    scene.remove(scene.children[0]);
+  }
+  createCube(scene);
+}
+
+module.exports = {
+  createCube: removeAndCreateCube,
+  removeAndCreateCube: removeAndCreateCube
 }

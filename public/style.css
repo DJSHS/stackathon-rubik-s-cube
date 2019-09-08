@@ -29,12 +29,12 @@ h1:after {
   border-radius: 0.5em;
 }
 
-.button:hover {
+.button.clickable:hover {
   background: lightgray;
   border: solid 4px lightgray;
 }
 
-.button:active {
+.button.clickable:active {
   background: gray;
 }
 
