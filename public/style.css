@@ -53,7 +53,7 @@ p {
 
 #spacebar {
   max-width: 15%;
-  height: 15%;
+  height: auto;
 }
 
 #cube {
